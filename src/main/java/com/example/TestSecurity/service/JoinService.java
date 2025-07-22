@@ -30,7 +30,7 @@ public class JoinService {
         //비밀번호는 반드시 암호화 하여 저장해야 한다.
         data.setPassword(bCryptPasswordEncoder.encode(joinDTO.getPassword()));
         //ROLE_ 뒤에 알맞은 역할 문자열 작성
-        data.setRole("ROLE_USER");
+        data.setRole("USER_ADMIN");
 
         userRepository.save(data);
 
