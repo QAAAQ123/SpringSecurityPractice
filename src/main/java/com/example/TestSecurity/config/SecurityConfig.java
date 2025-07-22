@@ -19,7 +19,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth//람다식으로 작성해야 한다.
                                 //requestMatchers()로 경로별 권한,인가 설정을 한다
-                        .requestMatchers("/","/login").permitAll()
+                        .requestMatchers("/","/login","/join","/joinProc").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .requestMatchers("/my/**").hasAnyRole("ADMIN","USER")
                         //유저아이디 하나마다 설정해 줄 수 없기 때문에 와일드 카드(**) 사용하여 아이디가 많더라도 하나씩 설정해주지 않아도 된다.
