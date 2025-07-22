@@ -27,7 +27,22 @@ public class SecurityConfig {
                         //**처리 순서가 위에서 아래로 진행되기 때문에 모든 경로에 대한 처리(anyRequest)는 가장 마지막에 해야한다.
                         //맨 처음에 anyRequest를 하게되면 아래에서 다르게 설정하더라도 모두 anyRequest로 빌드된다.
                 );
-        //
+
+        http
+                //formLogin()으로 로그인 페이지의 URL을 지정해준다.
+                //인증이 필요한 페이지에 인증 안된 사용자가 접근 할 경우 자동으로 loginPage()에 들어있는 주소로 이동한다.
+                .formLogin((auth) -> auth.loginPage("/login")
+                        //html login form태그의 action의 값
+                        //loginProcessingUrl()안에 경로를 지정해두면
+                        //해당 경로의 POST 요청이 오면 Spring Security가 자동으로 로그인 작업 수행한다.
+                        .loginProcessingUrl("/loginProc")
+                        .permitAll()
+                );
+
+        http
+                //csrf가 켜져있으면 POST request로 로그인 할때 csrf값도 같이 보내주어야 로그인이 진행된다
+                //csrf를 보내주지 않으면 로그인이 동작하지 않기 때문에 잠깐 disable
+                .csrf((auth) -> auth.disable());
 
         return http.build(); //최종적으로 빌드해서 리턴해준다-> 접근 권한 설정 완료
     }
